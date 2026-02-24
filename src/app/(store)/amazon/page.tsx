@@ -1,14 +1,10 @@
 import React from 'react';
 import ProductGrid from '../../../components/products/ProductGrid';
+import { Product } from '@/types';
 
 const AmazonPage = () => {
     // TODO: Fetch products from API filtered by Amazon platform
-    const products: Array<{
-        id: string;
-        title: string;
-        price: number;
-        image: string;
-    }> = [];
+    const products: Product[] = [];
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-orange-50 to-yellow-50">
