@@ -1,15 +1,14 @@
 import React from 'react';
-import Header from '../../components/layout/Header';
-import Footer from '../../components/layout/Footer';
-import Navbar from '../../components/layout/Navbar';
 
 const AdminLayout = ({ children }: { children: React.ReactNode }) => {
     return (
-        <div className="flex flex-col min-h-screen">
-            <Header />
-            <Navbar />
-            <main className="flex-grow">{children}</main>
-            <Footer />
+        <div className="min-h-screen bg-gray-100">
+            <div className="bg-gray-900 text-white py-4 px-6 shadow-lg">
+                <div className="container mx-auto">
+                    <h1 className="text-2xl font-bold">Panel de Administración</h1>
+                </div>
+            </div>
+            <main className="container mx-auto py-8 px-4">{children}</main>
         </div>
     );
 };

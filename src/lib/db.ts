@@ -1,14 +1,7 @@
 // Mock database functions for products
 // Replace this with actual database implementation later
 
-interface Product {
-  id: string;
-  name: string;
-  price: number;
-  description: string;
-  image: string;
-  store: string;
-}
+import { Product } from '@/types';
 
 // Mock data storage
 const products: Product[] = [];

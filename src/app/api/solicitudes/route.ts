@@ -4,6 +4,7 @@ import { NextResponse } from 'next/server';
 const solicitudes: Array<{
     id: string;
     productName: string;
+    productLink?: string;
     description?: string;
     email: string;
     createdAt: string;
@@ -11,7 +12,7 @@ const solicitudes: Array<{
 
 export async function POST(request: Request) {
     try {
-        const { productName, description, email } = await request.json();
+        const { productName, productLink, description, email } = await request.json();
 
         // Validate required fields
         if (!productName || !email) {
@@ -25,6 +26,7 @@ export async function POST(request: Request) {
         const newSolicitud = {
             id: Date.now().toString(),
             productName,
+            productLink,
             description,
             email,
             createdAt: new Date().toISOString(),
