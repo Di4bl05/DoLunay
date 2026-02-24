@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState } from 'react';
 
 const OrderForm = () => {
@@ -5,7 +7,7 @@ const OrderForm = () => {
     const [quantity, setQuantity] = useState(1);
     const [error, setError] = useState('');
 
-    const handleSubmit = (e) => {
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (!productId || quantity <= 0) {
             setError('Please enter a valid product ID and quantity.');
@@ -32,7 +34,7 @@ const OrderForm = () => {
                 type="number"
                 placeholder="Quantity"
                 value={quantity}
-                onChange={(e) => setQuantity(e.target.value)}
+                onChange={(e) => setQuantity(Number(e.target.value))}
                 className="border p-2"
                 min="1"
                 required

@@ -3,7 +3,7 @@ import Header from '../../components/layout/Header';
 import Footer from '../../components/layout/Footer';
 import Navbar from '../../components/layout/Navbar';
 
-const AdminLayout = ({ children }) => {
+const AdminLayout = ({ children }: { children: React.ReactNode }) => {
     return (
         <div className="flex flex-col min-h-screen">
             <Header />

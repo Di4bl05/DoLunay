@@ -1,10 +1,12 @@
+'use client';
+
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
+import { useParams } from 'next/navigation';
 import ProductDetails from '@/components/products/ProductDetails';
 
 const ProductPage = () => {
-  const router = useRouter();
-  const { id } = router.query;
+  const params = useParams();
+  const id = params?.id as string;
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
 

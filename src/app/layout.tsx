@@ -3,14 +3,23 @@ import Header from '../components/layout/Header';
 import Footer from '../components/layout/Footer';
 import './globals.css';
 
-const Layout = ({ children }) => {
+export const metadata = {
+    title: 'Dolunay Store',
+    description: 'Tu tienda de productos de Amazon, Shein y Temu',
+};
+
+const RootLayout = ({ children }: { children: React.ReactNode }) => {
     return (
-        <div className="min-h-screen flex flex-col">
-            <Header />
-            <main className="flex-grow">{children}</main>
-            <Footer />
-        </div>
+        <html lang="es">
+            <body>
+                <div className="min-h-screen flex flex-col">
+                    <Header />
+                    <main className="flex-grow">{children}</main>
+                    <Footer />
+                </div>
+            </body>
+        </html>
     );
 };
 
-export default Layout;
+export default RootLayout;

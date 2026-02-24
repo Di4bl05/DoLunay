@@ -1,24 +1,50 @@
-import { NextApiRequest, NextApiResponse } from 'next';
+import { NextResponse } from 'next/server';
 
-const solicitudesHandler = async (req: NextApiRequest, res: NextApiResponse) => {
-    if (req.method === 'POST') {
-        const { productName, userEmail } = req.body;
+// Array to store requests in memory for demonstration
+const solicitudes: Array<{
+    id: string;
+    productName: string;
+    description?: string;
+    email: string;
+    createdAt: string;
+}> = [];
 
-        // Here you would typically handle the request, e.g., save it to a database
-        // For now, we'll just return a success message
-        if (!productName || !userEmail) {
-            return res.status(400).json({ message: 'Product name and user email are required.' });
+export async function POST(request: Request) {
+    try {
+        const { productName, description, email } = await request.json();
+
+        // Validate required fields
+        if (!productName || !email) {
+            return NextResponse.json(
+                { message: 'Product name and email are required.' },
+                { status: 400 }
+            );
         }
 
-        // Simulate saving the request
-        // await saveRequestToDatabase({ productName, userEmail });
+        // Create new request object
+        const newSolicitud = {
+            id: Date.now().toString(),
+            productName,
+            description,
+            email,
+            createdAt: new Date().toISOString(),
+        };
 
-        return res.status(200).json({ message: 'Request submitted successfully!' });
-    } else {
-        // Handle any other HTTP method
-        res.setHeader('Allow', ['POST']);
-        return res.status(405).end(`Method ${req.method} Not Allowed`);
+        // Save the request
+        solicitudes.push(newSolicitud);
+
+        return NextResponse.json(
+            { message: 'Request submitted successfully!', solicitud: newSolicitud },
+            { status: 201 }
+        );
+    } catch {
+        return NextResponse.json(
+            { message: 'Error processing request' },
+            { status: 500 }
+        );
     }
-};
+}
 
-export default solicitudesHandler;
+export async function GET() {
+    return NextResponse.json(solicitudes);
+}

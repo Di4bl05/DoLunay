@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState } from 'react';
 
 const RequestForm = () => {
@@ -7,7 +9,7 @@ const RequestForm = () => {
     const [successMessage, setSuccessMessage] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setSuccessMessage('');
         setErrorMessage('');
@@ -30,7 +32,7 @@ const RequestForm = () => {
             } else {
                 throw new Error('Failed to submit request');
             }
-        } catch (error) {
+        } catch {
             setErrorMessage('There was an error submitting your request. Please try again.');
         }
     };
