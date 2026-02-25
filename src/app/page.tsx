@@ -70,43 +70,6 @@ const HomePage = () => {
             </div>
           </div>
         </div>
-
-        {/* Efecto de brillo */}
-        <style jsx>{`
-          .stars, .stars2, .stars3 {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            width: 100%;
-            height: 100%;
-            display: block;
-          }
-          
-          .stars {
-            background: transparent url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg"><circle cx="1" cy="1" r="1" fill="white" opacity="0.3"/></svg>') repeat;
-            background-size: 200px 200px;
-            animation: animateStars 50s linear infinite;
-          }
-          
-          .stars2 {
-            background: transparent url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg"><circle cx="1" cy="1" r="0.5" fill="white" opacity="0.5"/></svg>') repeat;
-            background-size: 100px 100px;
-            animation: animateStars 100s linear infinite;
-          }
-          
-          .stars3 {
-            background: transparent url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg"><circle cx="1" cy="1" r="0.3" fill="white" opacity="0.7"/></svg>') repeat;
-            background-size: 150px 150px;
-            animation: animateStars 150s linear infinite;
-          }
-          
-          @keyframes animateStars {
-            from { transform: translateY(0px); }
-            to { transform: translateY(-2000px); }
-          }
-        `}</style>
       </section>
 
 

@@ -13,7 +13,7 @@ const Footer: React.FC = () => {
                             <h3 className="text-white font-bold text-xl">Dolunay Store</h3>
                         </div>
                         <p className="text-sm leading-relaxed text-purple-200">
-                            "Luna Llena" en turco. Como la luna que crece cada noche, 
+                            &quot;Luna Llena&quot; en turco. Como la luna que crece cada noche, 
                             tu satisfacción crece con cada compra. ✨
                         </p>
                         <div className="mt-4 flex gap-2">
