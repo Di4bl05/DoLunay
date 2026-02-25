@@ -7,29 +7,36 @@ const Header: React.FC = () => {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
     return (
-        <header className="bg-gradient-to-r from-pink-500 via-pink-600 to-rose-500 shadow-lg sticky top-0 z-50">
+        <header className="bg-gradient-to-r from-indigo-900 via-purple-900 to-indigo-800 shadow-lg sticky top-0 z-50 border-b-2 border-purple-700">
             <div className="container mx-auto px-4">
                 <div className="flex justify-between items-center py-4">
                     {/* Logo */}
-                    <Link href="/" className="flex items-center space-x-2 group">
-                        <div className="bg-white rounded-full p-2 shadow-md group-hover:shadow-xl transition-shadow">
-                            <svg className="w-8 h-8 text-pink-500" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5zm0 18.5c-3.25-.94-6-4.6-6-8.5V8.3l6-3.11v15.31z"/>
-                            </svg>
+                    <Link href="/" className="flex items-center space-x-3 group">
+                        <div className="relative">
+                            <div className="absolute inset-0 bg-yellow-300 rounded-full blur-md opacity-50 group-hover:opacity-75 transition-opacity"></div>
+                            <div className="relative text-4xl animate-[float_3s_ease-in-out_infinite]">
+                                🌕
+                            </div>
                         </div>
-                        <span className="text-2xl font-bold text-white tracking-tight">Dolunay Store</span>
+                        <div>
+                            <span className="text-2xl font-bold bg-gradient-to-r from-yellow-200 via-yellow-100 to-white bg-clip-text text-transparent tracking-tight">Dolunay Store</span>
+                            <p className="text-xs text-purple-200">Luna Llena ✨</p>
+                        </div>
                     </Link>
 
                     {/* Desktop Navigation */}
-                    <nav className="hidden md:flex items-center space-x-8">
-                        <Link href="/" className="text-white hover:text-yellow-300 transition-colors font-medium">
-                            Inicio
+                    <nav className="hidden md:flex items-center space-x-6">
+                        <Link href="/" className="text-purple-100 hover:text-yellow-300 transition-colors font-medium flex items-center gap-1">
+                            🏠 Inicio
                         </Link>
-                        <Link href="/#productos" className="text-white hover:text-yellow-300 transition-colors font-medium">
-                            Productos
+                        <Link href="/productos" className="text-purple-100 hover:text-yellow-300 transition-colors font-medium flex items-center gap-1">
+                            🌟 Productos
                         </Link>
-                        <Link href="/solicitar" className="bg-white text-pink-600 px-6 py-2 rounded-full font-semibold hover:bg-yellow-300 hover:text-pink-700 transition-all shadow-md hover:shadow-lg">
-                            Solicitar Producto
+                        <Link href="/solicitar" className="bg-gradient-to-r from-yellow-400 to-yellow-500 text-gray-900 px-6 py-2 rounded-full font-bold hover:from-yellow-500 hover:to-yellow-600 transition-all shadow-md hover:shadow-lg">
+                            ✨ Solicitar
+                        </Link>
+                        <Link href="/admin" className="text-purple-200 hover:text-white transition-colors text-sm flex items-center gap-1">
+                            🔒 Admin
                         </Link>
                     </nav>
 
