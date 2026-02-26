@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import ProductGrid from '../components/products/ProductGrid';
 import FloatingWhatsApp from '@/components/lunar/FloatingWhatsApp';
 import MoonPhase from '@/components/lunar/MoonPhase';
@@ -43,15 +44,23 @@ const HomePage = () => {
 
         <div className="container mx-auto px-4 relative z-10">
           <div className="text-center max-w-4xl mx-auto">
-            {/* Luna animada */}
-            <div className="mb-8 flex justify-center">
-              <div className="animate-[float_6s_ease-in-out_infinite]">
+            {/* Logo y Luna animada combinados */}
+            <div className="mb-8 flex justify-center items-center gap-6">
+              <div className="relative w-32 h-32 md:w-40 md:h-40 animate-[float_6s_ease-in-out_infinite]">
+                <Image 
+                  src="/images/dolunay-icon.svg" 
+                  alt="Dolunay Logo" 
+                  fill
+                  className="object-contain drop-shadow-2xl"
+                />
+              </div>
+              <div className="animate-[float_6s_ease-in-out_infinite] animation-delay-300">
                 <MoonPhase phase={50} size="xl" />
               </div>
             </div>
 
             <h1 className="text-5xl md:text-6xl font-bold text-white mb-6 leading-tight">
-              🌙 <span className="bg-clip-text text-transparent bg-gradient-to-r from-yellow-200 via-yellow-100 to-white">Dolunay Store</span>
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-yellow-200 via-yellow-100 to-white">Dolunay Store</span>
             </h1>
             <p className="text-2xl mb-4 text-purple-200 font-semibold">
               Luna Llena de Oportunidades ✨

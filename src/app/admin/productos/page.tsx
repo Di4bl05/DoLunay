@@ -19,6 +19,9 @@ export default function AdminProductsPage() {
     available: true,
   });
 
+  const [imageInputType, setImageInputType] = useState<'url' | 'file'>('url');
+  const [imagePreview, setImagePreview] = useState<string>('');
+
   useEffect(() => {
     fetchProducts();
   }, []);
@@ -95,7 +98,40 @@ export default function AdminProductsPage() {
       imageUrl: product.imageUrl,
       available: product.available,
     });
+    setImagePreview(product.imageUrl);
+    setImageInputType(product.imageUrl.startsWith('data:') ? 'file' : 'url');
     setIsAddingProduct(true);
+  };
+
+  const handleImageFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    // Validar tipo de archivo
+    if (!file.type.startsWith('image/')) {
+      alert('Por favor selecciona un archivo de imagen válido');
+      return;
+    }
+
+    // Validar tamaño (máximo 5MB)
+    if (file.size > 5 * 1024 * 1024) {
+      alert('La imagen es muy grande. Por favor selecciona una imagen menor a 5MB');
+      return;
+    }
+
+    // Convertir a base64
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      const base64String = reader.result as string;
+      setFormData({ ...formData, imageUrl: base64String });
+      setImagePreview(base64String);
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const handleImageUrlChange = (url: string) => {
+    setFormData({ ...formData, imageUrl: url });
+    setImagePreview(url);
   };
 
   const resetForm = () => {
@@ -107,6 +143,8 @@ export default function AdminProductsPage() {
       imageUrl: '',
       available: true,
     });
+    setImagePreview('');
+    setImageInputType('url');
   };
 
   const moonProgress = (products.length / 20) * 100; // Meta: 20 productos = luna llena
@@ -203,17 +241,101 @@ export default function AdminProductsPage() {
                   </select>
                 </div>
 
-                <div>
+                <div className="md:col-span-2">
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    URL de Imagen
+                    Imagen del Producto
                   </label>
-                  <input
-                    type="url"
-                    value={formData.imageUrl}
-                    onChange={(e) => setFormData({ ...formData, imageUrl: e.target.value })}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
-                    placeholder="https://..."
-                  />
+                  
+                  {/* Selector de tipo de entrada */}
+                  <div className="flex gap-4 mb-4">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setImageInputType('url');
+                        setFormData({ ...formData, imageUrl: '' });
+                        setImagePreview('');
+                      }}
+                      className={`flex-1 py-2 px-4 rounded-lg font-medium transition-all ${
+                        imageInputType === 'url'
+                          ? 'bg-purple-600 text-white shadow-lg'
+                          : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                      }`}
+                    >
+                      🔗 Por Enlace
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setImageInputType('file');
+                        setFormData({ ...formData, imageUrl: '' });
+                        setImagePreview('');
+                      }}
+                      className={`flex-1 py-2 px-4 rounded-lg font-medium transition-all ${
+                        imageInputType === 'file'
+                          ? 'bg-purple-600 text-white shadow-lg'
+                          : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                      }`}
+                    >
+                      📱 Subir Imagen
+                    </button>
+                  </div>
+
+                  {/* Input según el tipo seleccionado */}
+                  {imageInputType === 'url' ? (
+                    <div>
+                      <input
+                        type="url"
+                        value={formData.imageUrl}
+                        onChange={(e) => handleImageUrlChange(e.target.value)}
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                        placeholder="https://ejemplo.com/imagen.jpg"
+                      />
+                      <p className="text-xs text-gray-500 mt-1">
+                        Pega la URL de la imagen aquí
+                      </p>
+                    </div>
+                  ) : (
+                    <div>
+                      <div className="relative">
+                        <input
+                          type="file"
+                          accept="image/*"
+                          onChange={handleImageFileChange}
+                          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-purple-50 file:text-purple-700 hover:file:bg-purple-100"
+                        />
+                      </div>
+                      <p className="text-xs text-gray-500 mt-1">
+                        Selecciona una imagen desde tu teléfono o PC (máx. 5MB)
+                      </p>
+                    </div>
+                  )}
+
+                  {/* Vista previa de la imagen */}
+                  {imagePreview && (
+                    <div className="mt-4">
+                      <p className="text-sm font-medium text-gray-700 mb-2">Vista previa:</p>
+                      <div className="relative w-full h-48 bg-gray-100 rounded-lg overflow-hidden">
+                        <img
+                          src={imagePreview}
+                          alt="Preview"
+                          className="w-full h-full object-contain"
+                        />
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setFormData({ ...formData, imageUrl: '' });
+                            setImagePreview('');
+                          }}
+                          className="absolute top-2 right-2 bg-red-500 text-white p-2 rounded-full hover:bg-red-600 transition-colors"
+                          title="Eliminar imagen"
+                        >
+                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                          </svg>
+                        </button>
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
 
